@@ -1,7 +1,7 @@
 import { App as AntApp, ConfigProvider } from 'antd';
 import styled from 'styled-components';
 
-import { Footer, Logo } from '@components';
+import { Footer, LanguageSwitcher, Logo } from '@components';
 import { Home } from '@views';
 
 const MainWrapper = styled.div`
@@ -21,6 +21,13 @@ const ProductLogoWrapper = styled.div`
   padding-right: 1.75rem;
 `;
 
+const LanguageSwitcherWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0.5rem 1.75rem;
+`;
+
 const App: React.FC = () => {
   return (
     <ConfigProvider
@@ -38,6 +45,9 @@ const App: React.FC = () => {
           <ProductLogoWrapper>
             <Logo systemName="Sushi" showEnvBadge={true} />
           </ProductLogoWrapper>
+          <LanguageSwitcherWrapper>
+            <LanguageSwitcher />
+          </LanguageSwitcherWrapper>
           <Home />
           <Footer />
         </MainWrapper>
