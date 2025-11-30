@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import { useBrowserStorage } from '@hooks';
-import { ILanguage } from '@interfaces';
+import { Language } from '@interfaces';
 
 const LanguageSwitcherDropdown = styled.div`
   cursor: pointer;
@@ -20,7 +20,7 @@ const LanguageSwitcher: React.FC = () => {
     '',
     'local',
   );
-  const languages: ILanguage[] = [
+  const languages: Language[] = [
     {
       code: 'en',
       countryCode: 'us',
@@ -33,7 +33,7 @@ const LanguageSwitcher: React.FC = () => {
     },
   ];
 
-  const getInitialLanguage = (): ILanguage => {
+  const getInitialLanguage = (): Language => {
     if (languageStorage) {
       return (
         languages.find((lang) => lang.code === languageStorage) ?? languages[0]
@@ -47,7 +47,7 @@ const LanguageSwitcher: React.FC = () => {
   };
 
   const [selectedLanguage, setSelectedLanguage] =
-    useState<ILanguage>(getInitialLanguage);
+    useState<Language>(getInitialLanguage);
 
   useEffect(() => {
     const language = getInitialLanguage();
