@@ -1,82 +1,57 @@
-import { Button as AntButton, Col, Flex, Row } from 'antd';
-import React from 'react';
+import { Button as AntButton, Flex, Row } from 'antd';
+import React, { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { triggerHaptic } from 'tactus';
 
-import { Button, PlateIcon } from '@components';
-import { IPlate } from '@interfaces';
+import { RootState } from '@config';
+import { removeAllItems } from '@slices';
+import PlateButtonList from './components/PlateButtonList';
 
 const ContentWrapper = styled.div`
   padding: 1rem 1rem;
 `;
 
-const PriceDisplay = styled.h1`
+const PriceDisplay = styled.span`
   font-size: 64px;
+  font-weight: bold;
   color: #333;
-`;
-
-const PriceContent = styled.span`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-`;
-
-const PlatePrice = styled.span`
-  font-size: 18px;
-  color: #555;
+  margin: 0;
 `;
 
 const Home: React.FC = () => {
-  const plateList: IPlate[] = [
-    {
-      price: 30,
-      color: '#fcf9fa',
-    },
-    {
-      price: 40,
-      color: '#ec003f',
-    },
-    {
-      price: 60,
-      color: '#cad5e2',
-    },
-    {
-      price: 80,
-      color: '#f0b100',
-    },
-    {
-      price: 100,
-      color: '#364153',
-    },
-  ];
+  const items = useSelector((state: RootState) => state.item?.items);
+  const dispatch = useDispatch();
 
-  const onPriceClick = (price: number) => {
-    triggerHaptic();
-    console.log(`Price clicked: ${price} THB`);
+  const { total, plateCount } = useMemo(() => {
+    let total = 0;
+    let plateCount = 0;
+    items.forEach((item) => {
+      total += item.price * item.quantity;
+      plateCount += item.quantity;
+    });
+    return { total, plateCount };
+  }, [items]);
+
+  const onReset = () => {
+    dispatch(removeAllItems());
   };
 
   return (
     <ContentWrapper>
       <Flex vertical justify="center" align="center">
-        <PriceDisplay>1,080 THB</PriceDisplay>
-        <Flex vertical justify="center" align="center">
-          <span>Total: 23 Plates</span>
+        <PriceDisplay>{total} THB</PriceDisplay>
+        <Flex justify="center" align="center">
+          <span>Total: {plateCount} Plates</span>
           <AntButton color="blue" variant="link">
-            Click to edit/view details
+            edit
           </AntButton>
         </Flex>
+        <AntButton color="danger" variant="link" onClick={onReset}>
+          reset
+        </AntButton>
       </Flex>
       <Row gutter={[12, 12]}>
-        {plateList.map((plate, index) => (
-          <Col key={index} span={12} style={{ height: 72 }}>
-            <Button onClick={() => onPriceClick(plate.price)}>
-              <PriceContent>
-                <PlateIcon color={plate.color} />
-                <PlatePrice>{plate.price} THB</PlatePrice>
-              </PriceContent>
-            </Button>
-          </Col>
-        ))}
+        <PlateButtonList />
       </Row>
     </ContentWrapper>
   );

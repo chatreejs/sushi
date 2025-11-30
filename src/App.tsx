@@ -1,8 +1,11 @@
 import { App as AntApp, ConfigProvider } from 'antd';
+import { Provider } from 'react-redux';
 import styled from 'styled-components';
 
 import { Footer, LanguageSwitcher, Logo } from '@components';
+import { persistor, store } from '@config';
 import { Home } from '@views';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const MainWrapper = styled.div`
   display: flex;
@@ -33,24 +36,29 @@ const App: React.FC = () => {
     <ConfigProvider
       theme={{
         token: {
+          colorPrimary: '#000',
           fontFamily: 'Varela Round, Kanit',
           fontSize: 14,
           fontWeightStrong: 700,
         },
       }}
     >
-      <AntApp>
-        <MainWrapper>
-          <ProductLogoWrapper>
-            <Logo systemName="Sushi!" showEnvBadge={true} />
-          </ProductLogoWrapper>
-          <LanguageSwitcherWrapper>
-            <LanguageSwitcher />
-          </LanguageSwitcherWrapper>
-          <Home />
-          <Footer />
-        </MainWrapper>
-      </AntApp>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <AntApp>
+            <MainWrapper>
+              <ProductLogoWrapper>
+                <Logo systemName="Sushi!" showEnvBadge={true} />
+              </ProductLogoWrapper>
+              <LanguageSwitcherWrapper>
+                <LanguageSwitcher />
+              </LanguageSwitcherWrapper>
+              <Home />
+              <Footer />
+            </MainWrapper>
+          </AntApp>
+        </PersistGate>
+      </Provider>
     </ConfigProvider>
   );
 };
