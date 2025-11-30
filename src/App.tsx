@@ -33,7 +33,6 @@ const App: React.FC = () => {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: '#2C9C91',
           fontFamily: 'Varela Round, Kanit',
           fontSize: 14,
           fontWeightStrong: 700,
@@ -43,7 +42,7 @@ const App: React.FC = () => {
       <AntApp>
         <MainWrapper>
           <ProductLogoWrapper>
-            <Logo systemName="Sushi" showEnvBadge={true} />
+            <Logo systemName="Sushi!" showEnvBadge={true} />
           </ProductLogoWrapper>
           <LanguageSwitcherWrapper>
             <LanguageSwitcher />

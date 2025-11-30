@@ -19,16 +19,21 @@ body {
 body {
   margin: 0;
   font-size: 14px;
-  font-family: 'Varela Round', Kanit, sans-serif, -apple-system;
+  font-family:
+    'Varela Round',
+    Kanit,
+    sans-serif,
+    -apple-system;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #ffffff;
   overflow-x: unset;
+  -webkit-user-select: none;
   user-select: none;
   --card-shadow-filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.1));
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
