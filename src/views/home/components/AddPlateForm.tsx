@@ -14,15 +14,14 @@ const AddPlateSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 16px 0;
+  padding: 6px 0;
 `;
 
 const AddPlateRow = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 6px;
 `;
 
 const AddPlateForm: React.FC<Props> = ({ plates, onAdd }) => {

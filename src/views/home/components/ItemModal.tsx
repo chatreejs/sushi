@@ -17,6 +17,7 @@ import {
   updatePlate,
 } from '@slices';
 
+import { triggerHaptic } from 'tactus';
 import AddPlateForm from './AddPlateForm';
 import PlateListItem from './PlateListItem';
 
@@ -43,10 +44,12 @@ const ItemModal: React.FC<Props> = ({ isOpen, onOk, onCancel }) => {
   };
 
   const handleIncrease = (price: number) => {
+    triggerHaptic();
     dispatch(addItem({ name: `plate-${price}`, quantity: 1, price }));
   };
 
   const handleDecrease = (price: number) => {
+    triggerHaptic();
     dispatch(decreaseItemQuantity({ name: `plate-${price}`, quantity: 1 }));
   };
 

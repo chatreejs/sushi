@@ -1,4 +1,4 @@
-import { App as AntApp, ConfigProvider, Flex } from 'antd';
+import { App as AntApp, ConfigProvider } from 'antd';
 import { Provider } from 'react-redux';
 import styled from 'styled-components';
 
@@ -10,10 +10,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   margin: 0 auto;
   width: 100%;
-  height: 100vh;
   max-width: 420px;
 `;
 
@@ -49,15 +47,14 @@ const App: React.FC = () => {
         <PersistGate loading={null} persistor={persistor}>
           <AntApp>
             <MainWrapper>
-              <Flex vertical>
-                <ProductLogoWrapper>
-                  <Logo systemName="Sushi!" showEnvBadge={true} />
-                </ProductLogoWrapper>
-                <LanguageSwitcherWrapper>
-                  <LanguageSwitcher />
-                </LanguageSwitcherWrapper>
-                <Home />
-              </Flex>
+              <ProductLogoWrapper>
+                <Logo systemName="Sushi!" showEnvBadge={true} />
+              </ProductLogoWrapper>
+              <LanguageSwitcherWrapper>
+                <LanguageSwitcher />
+              </LanguageSwitcherWrapper>
+              <Home />
+
               <Footer />
             </MainWrapper>
           </AntApp>
