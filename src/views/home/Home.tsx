@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { RootState } from '@config';
+import { useTranslation } from 'react-i18next';
 import ItemModal from './components/ItemModal';
 import PlateButtonList from './components/PlateButtonList';
 
@@ -19,6 +20,7 @@ const PriceDisplay = styled.span`
 `;
 
 const Home: React.FC = () => {
+  const { t } = useTranslation();
   const items = useSelector((state: RootState) => state.item.items);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -41,9 +43,9 @@ const Home: React.FC = () => {
       <Flex vertical justify="center" align="center">
         <PriceDisplay>฿ {total}</PriceDisplay>
         <Flex justify="center" align="center">
-          <span>Total: {plateCount} Plates</span>
+          <span>{t('home.main.total', { count: plateCount })}</span>
           <AntButton color="blue" variant="link" onClick={onEditClick}>
-            edit
+            {t('home.main.edit')}
           </AntButton>
         </Flex>
       </Flex>

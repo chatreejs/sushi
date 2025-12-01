@@ -17,6 +17,7 @@ import {
   updatePlate,
 } from '@slices';
 
+import { useTranslation } from 'react-i18next';
 import { triggerHaptic } from 'tactus';
 import AddPlateForm from './AddPlateForm';
 import PlateListItem from './PlateListItem';
@@ -34,6 +35,7 @@ const PlateList = styled.div`
 `;
 
 const ItemModal: React.FC<Props> = ({ isOpen, onOk, onCancel }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const plates = useSelector((state: RootState) => state.plate.plates);
   const items = useSelector((state: RootState) => state.item.items);
@@ -84,7 +86,7 @@ const ItemModal: React.FC<Props> = ({ isOpen, onOk, onCancel }) => {
 
   return (
     <Modal
-      title="Item list"
+      title={t('home.modal.title')}
       open={isOpen}
       onCancel={onCancel}
       onOk={onOk}
@@ -108,7 +110,7 @@ const ItemModal: React.FC<Props> = ({ isOpen, onOk, onCancel }) => {
       <Divider />
       {items.length > 0 && (
         <Button block onClick={handleClearQuantity}>
-          Clear Quantity
+          {t('home.modal.clear')}
         </Button>
       )}
       <Button
@@ -117,7 +119,7 @@ const ItemModal: React.FC<Props> = ({ isOpen, onOk, onCancel }) => {
         onClick={handleResetAll}
         style={{ marginTop: items.length > 0 ? 8 : 0 }}
       >
-        Reset All
+        {t('home.modal.reset')}
       </Button>
       <Divider />
       <AddPlateForm plates={plates} onAdd={handleAddPlate} />

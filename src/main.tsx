@@ -1,4 +1,5 @@
 import '@fontsource/dela-gothic-one';
+import '@fontsource/kanit';
 import '@fontsource/varela-round';
 import { createRoot } from 'react-dom/client';
 

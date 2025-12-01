@@ -624,6 +624,11 @@
   resolved "https://registry.yarnpkg.com/@fontsource/dela-gothic-one/-/dela-gothic-one-5.2.7.tgz#2ef92f311709bac4d09aeb01cd56775f59e2ddb3"
   integrity sha512-swkcFgr2HjPWbY7dGP/9H7zXePtwF6C5ASLriFSZ02nAh6zjUIudwz8TBWQu9mIXfbgWnvokZ0PjP2FWQGGIWQ==
 
+"@fontsource/kanit@^5.2.8":
+  version "5.2.8"
+  resolved "https://registry.yarnpkg.com/@fontsource/kanit/-/kanit-5.2.8.tgz#4ddd85eaed7f0735889868d6428b64cd1fc628e9"
+  integrity sha512-vISPW1kRoy+BTqplYCymdYRJcNFGmlPxWXqo178eGPe7P+lMX24JiQOxWdI4HLWR+0ROUzaFneXy/v1I9u99yg==
+
 "@fontsource/varela-round@^5.2.8":
   version "5.2.8"
   resolved "https://registry.yarnpkg.com/@fontsource/varela-round/-/varela-round-5.2.8.tgz#953dbb14b072661ac45d195d04dc133ab6fb9fdd"

@@ -1,0 +1,27 @@
+{
+  "common": {
+    "button": {
+      "Ok": "Ok"
+    }
+  },
+  "form": {
+    "placeholder": {
+      "price": "Price"
+    },
+    "error": {
+      "priceError": "This price already exists"
+    }
+  },
+  "home": {
+    "main": {
+      "total": "Total: {{count}} plate(s)",
+      "edit": "Edit"
+    },
+    "modal": {
+      "title": "Item list",
+      "add": "Add",
+      "clear": "Clear Quantity",
+      "reset": "Reset all config"
+    }
+  }
+}

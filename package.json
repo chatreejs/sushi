@@ -29,6 +29,7 @@
   "dependencies": {
     "@ant-design/icons": "^6.1.0",
     "@fontsource/dela-gothic-one": "^5.2.7",
+    "@fontsource/kanit": "^5.2.8",
     "@fontsource/varela-round": "^5.2.8",
     "@reduxjs/toolkit": "^2.11.0",
     "antd": "^6.0.0",

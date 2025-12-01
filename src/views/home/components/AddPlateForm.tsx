@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { Plate } from '@interfaces';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   plates: Plate[];
@@ -34,6 +35,7 @@ const getRandomColor = () => {
 };
 
 const AddPlateForm: React.FC<Props> = ({ plates, onAdd }) => {
+  const { t } = useTranslation();
   const [color, setColor] = useState(getRandomColor);
   const [price, setPrice] = useState<string>('');
   const [priceError, setPriceError] = useState<string | null>(null);
@@ -43,7 +45,7 @@ const AddPlateForm: React.FC<Props> = ({ plates, onAdd }) => {
     if (priceNum && priceNum > 0) {
       const existingPlate = plates.find((plate) => plate.price === priceNum);
       if (existingPlate) {
-        setPriceError('This price already exists');
+        setPriceError(t('form.error.priceError'));
         return;
       }
       onAdd({ price: priceNum, color });
@@ -76,7 +78,7 @@ const AddPlateForm: React.FC<Props> = ({ plates, onAdd }) => {
           style={{ marginBottom: 0 }}
         >
           <Input
-            placeholder="Price"
+            placeholder={t('form.placeholder.price')}
             value={price}
             onChange={handlePriceChange}
             addonBefore="฿"
@@ -92,7 +94,7 @@ const AddPlateForm: React.FC<Props> = ({ plates, onAdd }) => {
           onClick={handleAddPlate}
           disabled={!priceNum || priceNum <= 0}
         >
-          Add
+          {t('home.modal.add')}
         </Button>
       </AddPlateRow>
     </AddPlateSection>
