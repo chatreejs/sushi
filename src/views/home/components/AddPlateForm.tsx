@@ -24,8 +24,17 @@ const AddPlateRow = styled.div`
   gap: 6px;
 `;
 
+const getRandomColor = () => {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
 const AddPlateForm: React.FC<Props> = ({ plates, onAdd }) => {
-  const [color, setColor] = useState('#1677ff');
+  const [color, setColor] = useState(getRandomColor);
   const [price, setPrice] = useState<number | null>(null);
   const [priceError, setPriceError] = useState<string | null>(null);
 
@@ -37,7 +46,7 @@ const AddPlateForm: React.FC<Props> = ({ plates, onAdd }) => {
         return;
       }
       onAdd({ price, color });
-      setColor('#1677ff');
+      setColor(getRandomColor());
       setPrice(null);
       setPriceError(null);
     }
