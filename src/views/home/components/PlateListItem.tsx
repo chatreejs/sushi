@@ -1,5 +1,5 @@
 import { CheckOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Button, InputNumber } from 'antd';
+import { Button, Input } from 'antd';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -42,30 +42,36 @@ const PlateListItem: React.FC<Props> = ({
   onRemove,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedPrice, setEditedPrice] = useState<number | null>(plate.price);
+  const [editedPrice, setEditedPrice] = useState<string>(String(plate.price));
 
   const handleEditClick = () => {
     setIsEditing(true);
-    setEditedPrice(plate.price);
+    setEditedPrice(String(plate.price));
   };
 
   const handleConfirmEdit = () => {
-    if (editedPrice && editedPrice > 0) {
-      onEdit(plate.price, editedPrice);
+    const priceNum = parseInt(editedPrice, 10);
+    if (priceNum && priceNum > 0) {
+      onEdit(plate.price, priceNum);
       setIsEditing(false);
-      setEditedPrice(null);
+      setEditedPrice('');
     }
   };
 
   const handleRemove = () => {
     onRemove();
     setIsEditing(false);
-    setEditedPrice(null);
+    setEditedPrice('');
   };
 
   const handleCancelEdit = () => {
     setIsEditing(false);
-    setEditedPrice(plate.price);
+    setEditedPrice(String(plate.price));
+  };
+
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '');
+    setEditedPrice(value);
   };
 
   return (
@@ -74,15 +80,16 @@ const PlateListItem: React.FC<Props> = ({
         <PlateIcon color={plate.color} />
         {isEditing ? (
           <>
-            <InputNumber
+            <Input
               size="small"
-              min={1}
               value={editedPrice}
-              onChange={(value) => setEditedPrice(value)}
+              onChange={handlePriceChange}
               onPressEnter={handleConfirmEdit}
               onBlur={handleCancelEdit}
               style={{ width: 80 }}
               autoFocus
+              inputMode="numeric"
+              pattern="[0-9]*"
             />
             <Button
               type="text"

@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, ColorPicker, Form, InputNumber } from 'antd';
+import { Button, ColorPicker, Form, Input } from 'antd';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -35,29 +35,33 @@ const getRandomColor = () => {
 
 const AddPlateForm: React.FC<Props> = ({ plates, onAdd }) => {
   const [color, setColor] = useState(getRandomColor);
-  const [price, setPrice] = useState<number | null>(null);
+  const [price, setPrice] = useState<string>('');
   const [priceError, setPriceError] = useState<string | null>(null);
 
   const handleAddPlate = () => {
-    if (price && price > 0) {
-      const existingPlate = plates.find((plate) => plate.price === price);
+    const priceNum = parseInt(price, 10);
+    if (priceNum && priceNum > 0) {
+      const existingPlate = plates.find((plate) => plate.price === priceNum);
       if (existingPlate) {
         setPriceError('This price already exists');
         return;
       }
-      onAdd({ price, color });
+      onAdd({ price: priceNum, color });
       setColor(getRandomColor());
-      setPrice(null);
+      setPrice('');
       setPriceError(null);
     }
   };
 
-  const handlePriceChange = (value: number | null) => {
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '');
     setPrice(value);
     if (priceError) {
       setPriceError(null);
     }
   };
+
+  const priceNum = parseInt(price, 10);
 
   return (
     <AddPlateSection>
@@ -71,21 +75,22 @@ const AddPlateForm: React.FC<Props> = ({ plates, onAdd }) => {
           help={priceError}
           style={{ marginBottom: 0 }}
         >
-          <InputNumber
+          <Input
             placeholder="Price"
-            min={1}
             value={price}
             onChange={handlePriceChange}
             addonBefore="฿"
             style={{ width: 120 }}
             status={priceError ? 'error' : ''}
+            inputMode="numeric"
+            pattern="[0-9]*"
           />
         </Form.Item>
         <Button
           type="primary"
           icon={<PlusOutlined />}
           onClick={handleAddPlate}
-          disabled={!price || price <= 0}
+          disabled={!priceNum || priceNum <= 0}
         >
           Add
         </Button>
