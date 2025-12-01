@@ -1,10 +1,10 @@
 import { Button as AntButton, Flex, Row } from 'antd';
-import React, { useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { RootState } from '@config';
-import { removeAllItems } from '@slices';
+import ItemModal from './components/ItemModal';
 import PlateButtonList from './components/PlateButtonList';
 
 const ContentWrapper = styled.div`
@@ -19,8 +19,8 @@ const PriceDisplay = styled.span`
 `;
 
 const Home: React.FC = () => {
-  const items = useSelector((state: RootState) => state.item?.items);
-  const dispatch = useDispatch();
+  const items = useSelector((state: RootState) => state.item.items);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { total, plateCount } = useMemo(() => {
     let total = 0;
@@ -32,27 +32,29 @@ const Home: React.FC = () => {
     return { total, plateCount };
   }, [items]);
 
-  const onReset = () => {
-    dispatch(removeAllItems());
+  const onEditClick = () => {
+    setIsModalOpen(true);
   };
 
   return (
     <ContentWrapper>
       <Flex vertical justify="center" align="center">
-        <PriceDisplay>{total} THB</PriceDisplay>
+        <PriceDisplay>฿ {total}</PriceDisplay>
         <Flex justify="center" align="center">
           <span>Total: {plateCount} Plates</span>
-          <AntButton color="blue" variant="link">
+          <AntButton color="blue" variant="link" onClick={onEditClick}>
             edit
           </AntButton>
         </Flex>
-        <AntButton color="danger" variant="link" onClick={onReset}>
-          reset
-        </AntButton>
       </Flex>
       <Row gutter={[12, 12]}>
         <PlateButtonList />
       </Row>
+      <ItemModal
+        isOpen={isModalOpen}
+        onOk={() => setIsModalOpen(false)}
+        onCancel={() => setIsModalOpen(false)}
+      />
     </ContentWrapper>
   );
 };

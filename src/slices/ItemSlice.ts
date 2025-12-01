@@ -20,6 +20,20 @@ const itemSlice = createSlice({
         state.items.push(action.payload);
       }
     },
+    decreaseItemQuantity(
+      state,
+      action: PayloadAction<{ name: string; quantity: number }>,
+    ) {
+      const existingItemIndex = state.items.findIndex(
+        (item) => item.name === action.payload.name,
+      );
+      if (existingItemIndex >= 0) {
+        state.items[existingItemIndex].quantity -= action.payload.quantity;
+        if (state.items[existingItemIndex].quantity <= 0) {
+          state.items.splice(existingItemIndex, 1);
+        }
+      }
+    },
     removeAllItems(state) {
       state.items = [];
     },
@@ -27,4 +41,5 @@ const itemSlice = createSlice({
 });
 
 export default itemSlice.reducer;
-export const { addItem, removeAllItems } = itemSlice.actions;
+export const { addItem, decreaseItemQuantity, removeAllItems } =
+  itemSlice.actions;

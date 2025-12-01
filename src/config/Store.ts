@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { PERSIST, persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/es/storage';
 
-import { itemReducer } from '@slices';
+import { itemReducer, plateReducer } from '@slices';
 
 const persistConfig = {
   key: 'sushi-store',
@@ -11,6 +11,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   item: itemReducer,
+  plate: plateReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

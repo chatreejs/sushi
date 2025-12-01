@@ -1,12 +1,12 @@
 import { Col } from 'antd';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { triggerHaptic } from 'tactus';
 
 import { Button, PlateIcon } from '@components';
-import { Plate } from '@interfaces';
+import { RootState } from '@config';
 import { addItem } from '@slices';
-import { useDispatch } from 'react-redux';
 
 const PriceContent = styled.span`
   display: inline-flex;
@@ -19,30 +19,8 @@ const PlatePrice = styled.span`
   color: #555;
 `;
 
-const defaultPlateList: Plate[] = [
-  {
-    price: 30,
-    color: '#fcf9fa',
-  },
-  {
-    price: 40,
-    color: '#ec003f',
-  },
-  {
-    price: 60,
-    color: '#cad5e2',
-  },
-  {
-    price: 80,
-    color: '#f0b100',
-  },
-  {
-    price: 120,
-    color: '#364153',
-  },
-];
-
 const PlateButtonList: React.FC = () => {
+  const plates = useSelector((state: RootState) => state.plate.plates);
   const dispatch = useDispatch();
 
   const onPriceClick = (price: number) => {
@@ -58,12 +36,12 @@ const PlateButtonList: React.FC = () => {
 
   return (
     <>
-      {defaultPlateList.map((plate, index) => (
+      {plates.map((plate, index) => (
         <Col key={index} span={12} style={{ height: 72 }}>
           <Button onClick={() => onPriceClick(plate.price)}>
             <PriceContent>
               <PlateIcon color={plate.color} />
-              <PlatePrice>{plate.price} THB</PlatePrice>
+              <PlatePrice>฿ {plate.price}</PlatePrice>
             </PriceContent>
           </Button>
         </Col>
